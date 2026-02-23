@@ -1,0 +1,34 @@
+{
+    "name": "basketin/cart-promotions",
+    "description": "Cart promotions package for Basketin — discount rules, coupons and a promotion engine for Laravel e-commerce",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Karim Mohamed",
+            "email": "komicho1996@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Obelaw\\Basketin\\Cart\\Promotions\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1||^8.2",
+        "laravel/framework": "^10.0||^11.0||^12.0",
+        "basketin/cart": "dev-main"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Obelaw\\Basketin\\Cart\\Promotions\\Providers\\BasketinCartPromotionsServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
