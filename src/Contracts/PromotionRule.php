@@ -12,6 +12,13 @@ use Obelaw\Basketin\Cart\Services\CartService;
 interface PromotionRule
 {
     /**
+     * Get the name of the promotion rule.
+     *
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
      * Calculate discount for the provided cart.
      *
      * @param  CartService  $cart  The cart service instance
