@@ -29,13 +29,13 @@ class PromotionEngine
         return $this;
     }
 
-    public function apply()
+    public function apply(): self
     {
         $totalDiscount = 0;
         $this->appliedRules = []; // Reset applied rules list
 
         foreach ($this->rules as $rule) {
-            $discount = $rule->calculate($this->cart->quote()->getQuotes());
+            $discount = $rule->calculate($this->cart);
 
             if ($discount > 0) {
                 $totalDiscount += $discount;
