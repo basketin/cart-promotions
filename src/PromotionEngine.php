@@ -2,6 +2,7 @@
 
 namespace Obelaw\Basketin\Cart\Promotions;
 
+use Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule;
 use Obelaw\Basketin\Cart\Services\CartService;
 
 class PromotionEngine
@@ -14,7 +15,7 @@ class PromotionEngine
         $this->cart = $cart;
     }
 
-    public function apply($rule): self
+    public function apply(PromotionRule $rule): self
     {
         $this->rules[] = $rule;
         return $this;
@@ -25,7 +26,7 @@ class PromotionEngine
         $totalDiscount = 0;
 
         foreach ($this->rules as $rule) {
-            $totalDiscount += $rule->calculate($this->cart->quote()->getQuotes());
+            $totalDiscount += $rule->calculate($this->cart);
         }
 
         return $totalDiscount;
