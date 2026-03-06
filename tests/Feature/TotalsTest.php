@@ -13,7 +13,7 @@ beforeEach(function () {
     ]);
 });
 
-test('Get Item Final Total', function () {
+test('cart total with promotion applied via totals service', function () {
     $cart = CartManagement::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($this->product, 1);
 
@@ -26,7 +26,7 @@ test('Get Item Final Total', function () {
     expect($totals->getGrandTotal())->toEqual(499);
 });
 
-test('Cart class', function () {
+test('cart total with promotion applied via cart manageTotals', function () {
     $cart = TestCart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($this->product, 1);
 
