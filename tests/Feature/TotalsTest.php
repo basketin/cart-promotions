@@ -1,6 +1,6 @@
 <?php
 
-use Obelaw\Basketin\Cart\Facades\CartManagement;
+use Obelaw\Basketin\Cart\Facades\Cart;
 use Obelaw\Basketin\Cart\Promotions\Tests\App\Carts\TestCart;
 use Obelaw\Basketin\Cart\Promotions\Tests\App\Models\Product;
 use Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\TestRule;
@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 test('cart total with promotion applied via totals service', function () {
-    $cart = CartManagement::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($this->product, 1);
 
     $totals = $cart->totals();

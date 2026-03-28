@@ -20,9 +20,7 @@
         }
     },
     "require": {
-        "php": "^8.1||^8.2",
-        "laravel/framework": "^11.0||^12.0",
-        "basketin/cart": "2.x-dev"
+        "basketin/cart": "^2.0"
     },
     "require-dev": {
         "orchestra/testbench": "^10.9",

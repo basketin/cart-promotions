@@ -3,8 +3,8 @@
 namespace Obelaw\Basketin\Cart\Promotions;
 
 use Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule;
-use Obelaw\Basketin\Cart\Services\CartService;
-use Obelaw\Basketin\Cart\Services\TotalService;
+use Obelaw\Basketin\Cart\Services\CartManager;
+use Obelaw\Basketin\Cart\Services\TotalManager;
 
 class PromotionEngine
 {
@@ -18,7 +18,7 @@ class PromotionEngine
      */
     protected $appliedRules = [];
 
-    public function __construct(CartService $cart, TotalService $totals = null)
+    public function __construct(CartManager $cart, ?TotalManager $totals = null)
     {
         $this->cart = $cart;
         $this->totals = $totals ?? $cart->totals();

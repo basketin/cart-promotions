@@ -4,7 +4,7 @@ namespace Obelaw\Basketin\Cart\Promotions\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Obelaw\Basketin\Cart\Promotions\PromotionEngine;
-use Obelaw\Basketin\Cart\Services\TotalService;
+use Obelaw\Basketin\Cart\Services\TotalManager;
 
 class BasketinCartPromotionsServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,7 @@ class BasketinCartPromotionsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        TotalService::macro('promotions', function () {
+        TotalManager::macro('promotions', function () {
             return new PromotionEngine($this->getCartService(), $this);
         });
     }

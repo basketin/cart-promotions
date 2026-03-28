@@ -2,7 +2,7 @@
 
 namespace Obelaw\Basketin\Cart\Promotions\Contracts;
 
-use Obelaw\Basketin\Cart\Services\CartService;
+use Obelaw\Basketin\Cart\Services\CartManager;
 
 /**
  * Interface PromotionRule
@@ -21,8 +21,8 @@ interface PromotionRule
     /**
      * Calculate discount for the provided cart.
      *
-     * @param  CartService  $cart  The cart service instance
+     * @param  CartManager  $cart  The cart manager instance
      * @return float  Calculated discount amount
      */
-    public function calculate(CartService $cart): float;
+    public function calculate(CartManager $cart): float;
 }

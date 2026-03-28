@@ -1,6 +1,6 @@
 <?php
 
-use Obelaw\Basketin\Cart\Facades\CartManagement;
+use Obelaw\Basketin\Cart\Facades\Cart;
 use Obelaw\Basketin\Cart\Promotions\Tests\App\Models\Product;
 
 test('cart total without promotions', function () {
@@ -10,7 +10,7 @@ test('cart total without promotions', function () {
         'price' => 1000,
     ]);
 
-    $cart = CartManagement::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($product, 2);
 
     $totals = $cart->totals();
@@ -26,7 +26,7 @@ test('cart total with one promotion', function () {
         'price' => 1500,
     ]);
 
-    $cart = CartManagement::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($product, 1);
 
     $totals = $cart->totals();
@@ -46,7 +46,7 @@ test('multiple promotions applied to cart', function () {
         'price' => 800,
     ]);
 
-    $cart = CartManagement::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($product, 1);
 
     $totals = $cart->totals();
@@ -67,7 +67,7 @@ test('promotion with zero discount does not apply', function () {
         'price' => 500,
     ]);
 
-    $cart = CartManagement::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($product, 1);
 
     $totals = $cart->totals();
@@ -87,7 +87,7 @@ test('promotions applied rules tracking', function () {
         'price' => 200,
     ]);
 
-    $cart = CartManagement::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($product, 1);
 
     $totals = $cart->totals();
@@ -110,7 +110,7 @@ test('multiple promotions applied rules tracking', function () {
         'price' => 400,
     ]);
 
-    $cart = CartManagement::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
     $cart->quote()->addQuote($product, 1);
 
     $totals = $cart->totals();
