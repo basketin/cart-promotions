@@ -1,5 +1,6 @@
 <?php
 
+use Obelaw\Basketin\Cart\Promotions\DiscountContext;
 use Obelaw\Basketin\Cart\Promotions\Promotion;
 use Obelaw\Basketin\Cart\Promotions\PromotionEngine;
 
@@ -12,6 +13,7 @@ beforeEach(function () {
     });
 
     $this->totals->shouldReceive('getCartService')->andReturn($this->cart);
+    $this->totals->shouldReceive('getSubtotal')->andReturn(1000);
 });
 
 afterEach(function () {
@@ -20,7 +22,7 @@ afterEach(function () {
 
 test('promotion returns class name when no name is set', function () {
     $promotion = new class extends Promotion {
-        public function calculate($cart): float
+        public function calculate(DiscountContext $context): float
         {
             return 0;
         }
@@ -34,7 +36,7 @@ test('promotion returns custom name when set', function () {
     $promotion = new class extends Promotion {
         protected ?string $name = 'Custom Promotion';
 
-        public function calculate($cart): float
+        public function calculate(DiscountContext $context): float
         {
             return 0;
         }
@@ -48,7 +50,6 @@ test('promotion engine adds rule', function () {
 
     $rule = Mockery::mock(\Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule::class);
     $rule->shouldReceive('getName')->andReturn('Test Rule');
-    $rule->shouldReceive('calculate')->with($this->cart)->andReturn(50);
 
     $engine->rule($rule);
 
@@ -60,7 +61,14 @@ test('promotion engine applies rule and calculates discount', function () {
 
     $rule = Mockery::mock(\Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule::class);
     $rule->shouldReceive('getName')->andReturn('Test Rule');
-    $rule->shouldReceive('calculate')->with($this->cart)->andReturn(100);
+    $rule->shouldReceive('calculate')->withAnyArgs()->andReturn(100);
+    $rule->shouldReceive('handle')->andReturnUsing(function ($context, $next) use ($rule) {
+        $discount = $rule->calculate($context);
+        if ($discount > 0) {
+            $context->applyDiscount($discount, $rule->getName());
+        }
+        return $next($context);
+    });
 
     $engine->rule($rule);
     $result = $engine->apply();
@@ -76,7 +84,9 @@ test('promotion engine does not apply zero discount', function () {
 
     $rule = Mockery::mock(\Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule::class);
     $rule->shouldReceive('getName')->andReturn('Zero Discount Rule');
-    $rule->shouldReceive('calculate')->with($this->cart)->andReturn(0);
+    $rule->shouldReceive('handle')->andReturnUsing(function ($context, $next) {
+        return $next($context);
+    });
 
     $engine->rule($rule);
     $engine->apply();
@@ -89,11 +99,17 @@ test('promotion engine applies multiple rules', function () {
 
     $rule1 = Mockery::mock(\Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule::class);
     $rule1->shouldReceive('getName')->andReturn('Rule One');
-    $rule1->shouldReceive('calculate')->with($this->cart)->andReturn(50);
+    $rule1->shouldReceive('handle')->andReturnUsing(function ($context, $next) use ($rule1) {
+        $context->applyDiscount(50, $rule1->getName());
+        return $next($context);
+    });
 
     $rule2 = Mockery::mock(\Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule::class);
     $rule2->shouldReceive('getName')->andReturn('Rule Two');
-    $rule2->shouldReceive('calculate')->with($this->cart)->andReturn(30);
+    $rule2->shouldReceive('handle')->andReturnUsing(function ($context, $next) use ($rule2) {
+        $context->applyDiscount(30, $rule2->getName());
+        return $next($context);
+    });
 
     $engine->rule($rule1);
     $engine->rule($rule2);
@@ -109,7 +125,10 @@ test('promotion engine resets applied rules on each apply', function () {
 
     $rule = Mockery::mock(\Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule::class);
     $rule->shouldReceive('getName')->andReturn('Test Rule');
-    $rule->shouldReceive('calculate')->with($this->cart)->andReturn(100);
+    $rule->shouldReceive('handle')->andReturnUsing(function ($context, $next) use ($rule) {
+        $context->applyDiscount(100, $rule->getName());
+        return $next($context);
+    });
 
     $engine->rule($rule);
     $engine->apply();
