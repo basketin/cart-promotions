@@ -24,9 +24,7 @@
     },
     "require-dev": {
         "orchestra/testbench": "^10.9",
-        "pestphp/pest-plugin-laravel": "^4.1",
-        "laravel/legacy-factories": "^1.4",
-        "mockery/mockery": "^1.6"
+        "pestphp/pest-plugin-laravel": "^4.1"
     },
     "config": {
         "allow-plugins": {

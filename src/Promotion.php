@@ -7,16 +7,37 @@ use Closure;
 abstract class Promotion
 {
     protected ?string $name = null;
+    protected array $excludes = [];
 
     public function getName(): string
     {
         return $this->name ?? static::class;
     }
 
+    public function getExcludes(): array
+    {
+        return $this->excludes;
+    }
+
+    public function applying(DiscountContext $context): bool
+    {
+        foreach ($this->getExcludes() as $excludedClass) {
+            if ($context->hasApplied($excludedClass)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     abstract public function calculate(DiscountContext $context): float;
 
     public function handle(DiscountContext $context, Closure $next)
     {
+        if (!$this->applying($context)) {
+            return $next($context);
+        }
+
         $discount = $this->calculate($context);
 
         if ($discount > 0) {

@@ -36,4 +36,19 @@ class DiscountContext
 
         return $this;
     }
+
+    public function hasApplied(string $ruleName): bool
+    {
+        foreach ($this->appliedDiscounts as $discount) {
+            if ($discount['name'] === $ruleName) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getAppliedNames(): array
+    {
+        return array_column($this->appliedDiscounts, 'name');
+    }
 }
