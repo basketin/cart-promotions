@@ -3,15 +3,29 @@
 namespace Obelaw\Basketin\Cart\Promotions;
 
 use Closure;
+use Obelaw\Basketin\Cart\Promotions\Enums\Priority;
 
 abstract class Promotion
 {
     protected ?string $name = null;
+    protected Priority $priority = Priority::MEDIUM;
     protected array $excludes = [];
 
     public function getName(): string
     {
         return $this->name ?? static::class;
+    }
+
+    public function getPriority(): Priority
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(Priority $priority): self
+    {
+        $this->priority = $priority;
+
+        return $this;
     }
 
     public function getExcludes(): array

@@ -4,6 +4,7 @@ namespace Obelaw\Basketin\Cart\Promotions;
 
 use Illuminate\Pipeline\Pipeline;
 use Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule;
+use Obelaw\Basketin\Cart\Promotions\Enums\Priority;
 use Obelaw\Basketin\Cart\Services\CartManager;
 use Obelaw\Basketin\Cart\Services\TotalManager;
 
@@ -33,9 +34,11 @@ class PromotionEngine
         $subtotal = $this->totals->getSubtotal();
         $context = new DiscountContext($this->cart, $subtotal);
 
+        $rules = collect($this->rules)->sortByDesc(fn($rule) => $rule->getPriority() instanceof Priority ? $rule->getPriority()->value : $rule->getPriority())->values()->all();
+
         app(Pipeline::class)
             ->send($context)
-            ->through($this->rules)
+            ->through($rules)
             ->thenReturn();
 
         foreach ($context->appliedDiscounts as $discount) {
