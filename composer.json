@@ -26,6 +26,13 @@
         "orchestra/testbench": "^10.9",
         "pestphp/pest-plugin-laravel": "^4.1"
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Obelaw\\Basketin\\Cart\\Promotions\\Providers\\BasketinCartPromotionsServiceProvider"
+            ]
+        }
+    },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
