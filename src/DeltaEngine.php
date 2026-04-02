@@ -8,7 +8,7 @@ use Obelaw\Basketin\Cart\Delta\Enums\Priority;
 use Obelaw\Basketin\Cart\Services\CartManager;
 use Obelaw\Basketin\Cart\Services\TotalManager;
 
-class PromotionEngine
+class DeltaEngine
 {
     protected CartManager $cart;
     protected TotalManager $totals;
@@ -32,7 +32,7 @@ class PromotionEngine
         $this->appliedRules = [];
 
         $subtotal = $this->totals->getSubtotal();
-        $context = new DiscountContext($this->cart, $subtotal);
+        $context = new DeltaContext($this->cart, $subtotal);
 
         $rules = collect($this->rules)->sortByDesc(fn($rule) => $rule->getPriority() instanceof Priority ? $rule->getPriority()->value : $rule->getPriority())->values()->all();
 

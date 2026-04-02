@@ -33,7 +33,7 @@ abstract class Promotion
         return $this->excludes;
     }
 
-    public function applying(DiscountContext $context): bool
+    public function applying(DeltaContext $context): bool
     {
         foreach ($this->getExcludes() as $excludedClass) {
             if ($context->hasApplied($excludedClass)) {
@@ -44,9 +44,9 @@ abstract class Promotion
         return true;
     }
 
-    abstract public function calculate(DiscountContext $context): float;
+    abstract public function calculate(DeltaContext $context): float;
 
-    public function handle(DiscountContext $context, Closure $next)
+    public function handle(DeltaContext $context, Closure $next)
     {
         if (!$this->applying($context)) {
             return $next($context);
