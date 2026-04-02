@@ -11,7 +11,7 @@ class TestCart extends CartBase implements HasManageTotals
 {
     public function manageTotals(TotalManager $totals): void
     {
-        $totals->promotions()
+        $totals->delta()
             ->rule(new TestRule())
             ->apply();
     }

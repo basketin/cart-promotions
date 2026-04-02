@@ -20,7 +20,7 @@ test('cart total with promotion applied via totals service', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new TestRule())
         ->apply();
 
@@ -42,7 +42,7 @@ test('cart total with tax surcharge applied via totals service', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new TaxRule())
         ->apply();
 
@@ -56,7 +56,7 @@ test('cart total with promotion and tax surcharge applied', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new TestRule())
         ->rule(new TaxRule())
         ->apply();
@@ -71,7 +71,7 @@ test('cart total with multiple surcharges applied', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new TaxRule())
         ->rule(new TaxRule())
         ->apply();

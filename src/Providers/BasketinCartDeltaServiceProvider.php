@@ -25,7 +25,7 @@ class BasketinCartDeltaServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        TotalManager::macro('promotions', function () {
+        TotalManager::macro('delta', function () {
             return new DeltaEngine($this->getCartService(), $this);
         });
     }

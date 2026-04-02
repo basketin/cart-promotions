@@ -31,7 +31,7 @@ test('cart total with one promotion', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
@@ -51,7 +51,7 @@ test('multiple promotions applied to cart', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
@@ -72,7 +72,7 @@ test('promotion with zero discount does not apply', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\ZeroDiscountRule())
         ->apply();
 
@@ -92,7 +92,7 @@ test('promotions applied rules tracking', function () {
 
     $totals = $cart->totals();
 
-    $engine = $totals->promotions()
+    $engine = $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
@@ -115,7 +115,7 @@ test('multiple promotions applied rules tracking', function () {
 
     $totals = $cart->totals();
 
-    $engine = $totals->promotions()
+    $engine = $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\AnotherRule())
         ->apply();
@@ -139,7 +139,7 @@ test('getContext returns DeltaContext after applying promotions', function () {
 
     $totals = $cart->totals();
 
-    $engine = $totals->promotions()
+    $engine = $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
@@ -163,7 +163,7 @@ test('getContext returns context with correct cart and subtotal', function () {
 
     $totals = $cart->totals();
 
-    $engine = $totals->promotions()
+    $engine = $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
@@ -185,7 +185,7 @@ test('getContext returns empty discounts when no rules applied', function () {
 
     $totals = $cart->totals();
 
-    $engine = $totals->promotions()->apply();
+    $engine = $totals->delta()->apply();
 
     $context = $engine->getContext();
 
