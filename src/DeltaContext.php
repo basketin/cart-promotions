@@ -4,7 +4,7 @@ namespace Obelaw\Basketin\Cart\Delta;
 
 use Obelaw\Basketin\Cart\Services\CartManager;
 
-class DiscountContext
+class DeltaContext
 {
     public CartManager $cart;
     public float $originalPrice;

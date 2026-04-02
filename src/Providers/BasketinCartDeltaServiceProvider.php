@@ -3,7 +3,7 @@
 namespace Obelaw\Basketin\Cart\Delta\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Obelaw\Basketin\Cart\Delta\PromotionEngine;
+use Obelaw\Basketin\Cart\Delta\DeltaEngine;
 use Obelaw\Basketin\Cart\Services\TotalManager;
 
 class BasketinCartDeltaServiceProvider extends ServiceProvider
@@ -26,7 +26,7 @@ class BasketinCartDeltaServiceProvider extends ServiceProvider
     public function boot()
     {
         TotalManager::macro('promotions', function () {
-            return new PromotionEngine($this->getCartService(), $this);
+            return new DeltaEngine($this->getCartService(), $this);
         });
     }
 }
