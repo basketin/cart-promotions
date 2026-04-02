@@ -1,12 +1,12 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions\Providers;
+namespace Obelaw\Basketin\Cart\Delta\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Obelaw\Basketin\Cart\Promotions\PromotionEngine;
+use Obelaw\Basketin\Cart\Delta\PromotionEngine;
 use Obelaw\Basketin\Cart\Services\TotalManager;
 
-class BasketinCartPromotionsServiceProvider extends ServiceProvider
+class BasketinCartDeltaServiceProvider extends ServiceProvider
 {
     /**
      * Register services.

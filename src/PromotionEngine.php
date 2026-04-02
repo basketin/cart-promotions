@@ -1,10 +1,10 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions;
+namespace Obelaw\Basketin\Cart\Delta;
 
 use Illuminate\Pipeline\Pipeline;
-use Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule;
-use Obelaw\Basketin\Cart\Promotions\Enums\Priority;
+use Obelaw\Basketin\Cart\Delta\Contracts\PromotionRule;
+use Obelaw\Basketin\Cart\Delta\Enums\Priority;
 use Obelaw\Basketin\Cart\Services\CartManager;
 use Obelaw\Basketin\Cart\Services\TotalManager;
 

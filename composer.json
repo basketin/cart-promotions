@@ -1,6 +1,6 @@
 {
-    "name": "basketin/cart-promotions",
-    "description": "Cart promotions package for Basketin — discount rules, coupons and a promotion engine for Laravel e-commerce",
+    "name": "basketin/cart-delta",
+    "description": "Cart delta package for Basketin — discount rules, coupons and a promotion engine for Laravel e-commerce",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,12 +11,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Obelaw\\Basketin\\Cart\\Promotions\\": "src/"
+            "Obelaw\\Basketin\\Cart\\Delta\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Obelaw\\Basketin\\Cart\\Promotions\\Tests\\": "tests/"
+            "Obelaw\\Basketin\\Cart\\Delta\\Tests\\": "tests/"
         }
     },
     "require": {
@@ -29,7 +29,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Obelaw\\Basketin\\Cart\\Promotions\\Providers\\BasketinCartPromotionsServiceProvider"
+                "Obelaw\\Basketin\\Cart\\Delta\\Providers\\BasketinCartDeltaServiceProvider"
             ]
         }
     },

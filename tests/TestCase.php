@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions\Tests;
+namespace Obelaw\Basketin\Cart\Delta\Tests;
 
-use Obelaw\Basketin\Cart\Promotions\Providers\BasketinCartPromotionsServiceProvider;
-use Obelaw\Basketin\Cart\Promotions\Tests\App\Providers\BasketinCartPromotionsTestServiceProvider;
+use Obelaw\Basketin\Cart\Delta\Providers\BasketinCartDeltaServiceProvider;
+use Obelaw\Basketin\Cart\Delta\Tests\App\Providers\BasketinCartDeltaTestServiceProvider;
 use Obelaw\Basketin\Cart\Providers\BasketinCartServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
@@ -25,8 +25,8 @@ class TestCase extends BaseTestCase
     {
         return [
             BasketinCartServiceProvider::class,
-            BasketinCartPromotionsServiceProvider::class,
-            BasketinCartPromotionsTestServiceProvider::class,
+            BasketinCartDeltaServiceProvider::class,
+            BasketinCartDeltaTestServiceProvider::class,
         ];
     }
 

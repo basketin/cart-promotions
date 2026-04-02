@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions\Enums;
+namespace Obelaw\Basketin\Cart\Delta\Enums;
 
 enum Priority: int
 {
