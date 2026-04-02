@@ -3,7 +3,7 @@
 namespace Obelaw\Basketin\Cart\Delta;
 
 use Illuminate\Pipeline\Pipeline;
-use Obelaw\Basketin\Cart\Delta\Contracts\PromotionRule;
+use Obelaw\Basketin\Cart\Delta\Contracts\DeltaRule;
 use Obelaw\Basketin\Cart\Delta\Enums\Priority;
 use Obelaw\Basketin\Cart\Services\CartManager;
 use Obelaw\Basketin\Cart\Services\TotalManager;
@@ -21,7 +21,7 @@ class DeltaEngine
         $this->totals = $totals ?? $cart->totals();
     }
 
-    public function rule(PromotionRule $rule): self
+    public function rule(DeltaRule $rule): self
     {
         $this->rules[] = $rule;
         return $this;
@@ -46,6 +46,15 @@ class DeltaEngine
             $this->appliedRules[] = [
                 'name' => $discount['name'],
                 'discount_amount' => $discount['amount'],
+                'rule_type' => null,
+            ];
+        }
+
+        foreach ($context->appliedSurcharges as $surcharge) {
+            $this->totals->applyAddition($surcharge['amount'], $surcharge['name']);
+            $this->appliedRules[] = [
+                'name' => $surcharge['name'],
+                'surcharge_amount' => $surcharge['amount'],
                 'rule_type' => null,
             ];
         }

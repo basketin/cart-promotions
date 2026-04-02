@@ -10,6 +10,7 @@ class DeltaContext
     public float $originalPrice;
     public float $currentPrice;
     public array $appliedDiscounts = [];
+    public array $appliedSurcharges = [];
 
     public function __construct(CartManager $cart, float $originalPrice)
     {
@@ -37,10 +38,35 @@ class DeltaContext
         return $this;
     }
 
+    public function applySurcharge(float $amount, string $name): self
+    {
+        $amount = round($amount, 2);
+
+        if ($amount > 0) {
+            $this->currentPrice = round($this->currentPrice + $amount, 2);
+            $this->appliedSurcharges[] = [
+                'name' => $name,
+                'amount' => $amount,
+            ];
+        }
+
+        return $this;
+    }
+
     public function hasApplied(string $ruleName): bool
     {
         foreach ($this->appliedDiscounts as $discount) {
             if ($discount['name'] === $ruleName) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasAppliedSurcharge(string $ruleName): bool
+    {
+        foreach ($this->appliedSurcharges as $surcharge) {
+            if ($surcharge['name'] === $ruleName) {
                 return true;
             }
         }
