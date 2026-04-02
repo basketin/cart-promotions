@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions\Tests\App\Models;
+namespace Obelaw\Basketin\Cart\Delta\Tests\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Obelaw\Basketin\Cart\Contracts\IQuote;

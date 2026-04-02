@@ -1,7 +1,7 @@
 <?php
 
 use Obelaw\Basketin\Cart\Facades\Cart;
-use Obelaw\Basketin\Cart\Promotions\Tests\App\Models\Product;
+use Obelaw\Basketin\Cart\Delta\Tests\App\Models\Product;
 
 test('cart total without promotions', function () {
     $product = Product::create([
@@ -32,7 +32,7 @@ test('cart total with one promotion', function () {
     $totals = $cart->totals();
 
     $totals->promotions()
-        ->rule(new \Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\TestRule())
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
     expect($totals->getSubtotal())->toEqual(1500);
@@ -52,8 +52,8 @@ test('multiple promotions applied to cart', function () {
     $totals = $cart->totals();
 
     $totals->promotions()
-        ->rule(new \Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\TestRule())
-        ->rule(new \Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\TestRule())
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
     expect($totals->getSubtotal())->toEqual(800);
@@ -73,7 +73,7 @@ test('promotion with zero discount does not apply', function () {
     $totals = $cart->totals();
 
     $totals->promotions()
-        ->rule(new \Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\ZeroDiscountRule())
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\ZeroDiscountRule())
         ->apply();
 
     expect($totals->getSubtotal())->toEqual(500);
@@ -93,7 +93,7 @@ test('promotions applied rules tracking', function () {
     $totals = $cart->totals();
 
     $engine = $totals->promotions()
-        ->rule(new \Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\TestRule())
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
     $appliedRules = $engine->getAppliedRules();
@@ -116,8 +116,8 @@ test('multiple promotions applied rules tracking', function () {
     $totals = $cart->totals();
 
     $engine = $totals->promotions()
-        ->rule(new \Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\TestRule())
-        ->rule(new \Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\AnotherRule())
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\AnotherRule())
         ->apply();
 
     $appliedRules = $engine->getAppliedRules();

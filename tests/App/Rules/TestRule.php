@@ -1,10 +1,10 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions\Tests\App\Rules;
+namespace Obelaw\Basketin\Cart\Delta\Tests\App\Rules;
 
-use Obelaw\Basketin\Cart\Promotions\Contracts\PromotionRule;
-use Obelaw\Basketin\Cart\Promotions\DiscountContext;
-use Obelaw\Basketin\Cart\Promotions\Promotion;
+use Obelaw\Basketin\Cart\Delta\Contracts\PromotionRule;
+use Obelaw\Basketin\Cart\Delta\DiscountContext;
+use Obelaw\Basketin\Cart\Delta\Promotion;
 
 class TestRule extends Promotion implements PromotionRule
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions\Contracts;
+namespace Obelaw\Basketin\Cart\Delta\Contracts;
 
 use Closure;
-use Obelaw\Basketin\Cart\Promotions\DiscountContext;
-use Obelaw\Basketin\Cart\Promotions\Enums\Priority;
+use Obelaw\Basketin\Cart\Delta\DiscountContext;
+use Obelaw\Basketin\Cart\Delta\Enums\Priority;
 
 interface PromotionRule
 {

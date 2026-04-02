@@ -1,9 +1,9 @@
 <?php
 
 use Obelaw\Basketin\Cart\Facades\Cart;
-use Obelaw\Basketin\Cart\Promotions\Tests\App\Carts\TestCart;
-use Obelaw\Basketin\Cart\Promotions\Tests\App\Models\Product;
-use Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\TestRule;
+use Obelaw\Basketin\Cart\Delta\Tests\App\Carts\TestCart;
+use Obelaw\Basketin\Cart\Delta\Tests\App\Models\Product;
+use Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule;
 
 beforeEach(function () {
     $this->product = Product::create([

@@ -1,10 +1,10 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions\Tests\App\Carts;
+namespace Obelaw\Basketin\Cart\Delta\Tests\App\Carts;
 
 use Obelaw\Basketin\Cart\Base\CartBase;
 use Obelaw\Basketin\Cart\Contracts\HasManageTotals;
-use Obelaw\Basketin\Cart\Promotions\Tests\App\Rules\TestRule;
+use Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule;
 use Obelaw\Basketin\Cart\Services\TotalManager;
 
 class TestCart extends CartBase implements HasManageTotals

@@ -1,10 +1,10 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions\Tests\App\Providers;
+namespace Obelaw\Basketin\Cart\Delta\Tests\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class BasketinCartPromotionsTestServiceProvider extends ServiceProvider
+class BasketinCartDeltaTestServiceProvider extends ServiceProvider
 {
     /**
      * Register services.

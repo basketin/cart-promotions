@@ -1,6 +1,6 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions;
+namespace Obelaw\Basketin\Cart\Delta;
 
 use Obelaw\Basketin\Cart\Services\CartManager;
 

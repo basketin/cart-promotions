@@ -1,9 +1,9 @@
 <?php
 
-namespace Obelaw\Basketin\Cart\Promotions;
+namespace Obelaw\Basketin\Cart\Delta;
 
 use Closure;
-use Obelaw\Basketin\Cart\Promotions\Enums\Priority;
+use Obelaw\Basketin\Cart\Delta\Enums\Priority;
 
 abstract class Promotion
 {
