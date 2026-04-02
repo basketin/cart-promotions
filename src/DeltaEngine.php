@@ -10,6 +10,7 @@ use Obelaw\Basketin\Cart\Services\TotalManager;
 
 class DeltaEngine
 {
+    protected DeltaContext $context;
     protected CartManager $cart;
     protected TotalManager $totals;
     protected array $rules = [];
@@ -59,11 +60,18 @@ class DeltaEngine
             ];
         }
 
+        $this->context = $context;
+
         return $this;
     }
 
     public function getAppliedRules(): array
     {
         return $this->appliedRules;
+    }
+
+    public function getContext(): DeltaContext
+    {
+        return $this->context;
     }
 }
