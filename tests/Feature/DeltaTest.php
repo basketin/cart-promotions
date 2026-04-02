@@ -31,7 +31,7 @@ test('cart total with one promotion', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
@@ -51,7 +51,7 @@ test('multiple promotions applied to cart', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
@@ -72,7 +72,7 @@ test('promotion with zero discount does not apply', function () {
 
     $totals = $cart->totals();
 
-    $totals->promotions()
+    $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\ZeroDiscountRule())
         ->apply();
 
@@ -92,7 +92,7 @@ test('promotions applied rules tracking', function () {
 
     $totals = $cart->totals();
 
-    $engine = $totals->promotions()
+    $engine = $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->apply();
 
@@ -115,7 +115,7 @@ test('multiple promotions applied rules tracking', function () {
 
     $totals = $cart->totals();
 
-    $engine = $totals->promotions()
+    $engine = $totals->delta()
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
         ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\AnotherRule())
         ->apply();
@@ -125,4 +125,70 @@ test('multiple promotions applied rules tracking', function () {
     expect($appliedRules)->toHaveCount(2);
     expect($appliedRules[0]['name'])->toEqual('test rule');
     expect($appliedRules[1]['name'])->toEqual('another rule');
+});
+
+test('getContext returns DeltaContext after applying promotions', function () {
+    $product = Product::create([
+        'name' => 'iPhone',
+        'sku' => 11111,
+        'price' => 1000,
+    ]);
+
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart->quote()->addQuote($product, 1);
+
+    $totals = $cart->totals();
+
+    $engine = $totals->delta()
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
+        ->apply();
+
+    $context = $engine->getContext();
+
+    expect($context)->toBeInstanceOf(\Obelaw\Basketin\Cart\Delta\DeltaContext::class);
+    expect($context->appliedDiscounts)->toHaveCount(1);
+    expect($context->appliedDiscounts[0]['name'])->toEqual('test rule');
+    expect($context->appliedDiscounts[0]['amount'])->toEqual(100);
+});
+
+test('getContext returns context with correct cart and subtotal', function () {
+    $product = Product::create([
+        'name' => 'MacBook',
+        'sku' => 22222,
+        'price' => 1500,
+    ]);
+
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart->quote()->addQuote($product, 2);
+
+    $totals = $cart->totals();
+
+    $engine = $totals->delta()
+        ->rule(new \Obelaw\Basketin\Cart\Delta\Tests\App\Rules\TestRule())
+        ->apply();
+
+    $context = $engine->getContext();
+
+    expect($context->cart)->toBe($cart);
+    expect($context->originalPrice)->toEqual(3000);
+});
+
+test('getContext returns empty discounts when no rules applied', function () {
+    $product = Product::create([
+        'name' => 'iPad',
+        'sku' => 33333,
+        'price' => 800,
+    ]);
+
+    $cart = Cart::make('01HF7V7N1MG9SDFPQYWXDNHR9Q', 'USD');
+    $cart->quote()->addQuote($product, 1);
+
+    $totals = $cart->totals();
+
+    $engine = $totals->delta()->apply();
+
+    $context = $engine->getContext();
+
+    expect($context->appliedDiscounts)->toBeEmpty();
+    expect($context->appliedSurcharges)->toBeEmpty();
 });

@@ -6,7 +6,7 @@ use Closure;
 use Obelaw\Basketin\Cart\Delta\DeltaContext;
 use Obelaw\Basketin\Cart\Delta\Enums\Priority;
 
-interface PromotionRule
+interface DeltaRule
 {
     public function getName(): string;
 
